@@ -12,6 +12,7 @@ public:
 };
 
 void insert(int value);
+void insert(int value, int Pos);
 void display();
 
 node* g_pnHead;
@@ -40,6 +41,72 @@ void insert(int value)
 	
 }
 
+void insert(int value, int pos)
+{
+	bool isError;
+	node *pInterator = g_pnHead;
+	node *pnTemp = new node();
+	pnTemp->m_isRear = false;
+	pnTemp->m_isHead = false;
+	pnTemp->next = NULL;
+
+	pnTemp->data = value;
+	isError = false;
+	if( pos == 1)
+	{
+		if(g_pnHead != NULL)
+		{
+			g_pnHead->m_isHead = false;
+			pnTemp->next = g_pnHead;
+		}
+		else
+		{
+			g_pnRear = pnTemp;
+		}
+		g_pnHead = pnTemp;
+		g_pnHead->m_isHead = true;
+	}
+	else
+	{
+		if((pos == 0)|(pInterator == NULL))
+			cout << "Error !\n";
+		else
+		{
+			for(int i = 0; i < pos - 2; i++)
+			{
+				if(pInterator->next == NULL)
+				{
+					if( i < (pos - 2))
+						isError = true;
+
+					break;
+				}
+
+				pInterator = pInterator->next;
+			}
+
+			if(isError == false)
+			{
+				if(pInterator->next == NULL)
+				{
+					pInterator->m_isRear = false;
+					pnTemp->m_isRear = true;
+				}
+				pnTemp->next = pInterator->next;
+				pInterator->next = pnTemp;
+			}
+			else
+			{
+				cout << "Error !\n";
+			}
+			
+
+		}	
+	}
+	
+}
+
+
 void display()
 {
 	node* pnTemp = g_pnHead;
@@ -62,15 +129,21 @@ int main()
 	g_pnHead = NULL;
 	g_pnRear = NULL;
 
-	cout << "Number of Node: ";
-	scanf_s("%d", &numOfNote);
+	// cout << "Number of Node: ";
+	// scanf_s("%d", &numOfNote);
 
-	for (int i = 0; i < numOfNote; i++)
-	{
-		cout << " + Data " << i << ": ";
-		scanf_s("%d", &data);
-		insert(data);
-	}
+	// for (int i = 0; i < numOfNote; i++)
+	// {
+	// 	cout << " + Data " << i << ": ";
+	// 	scanf_s("%d", &data);
+	// 	insert(data, i + 1);
+	// }
+	insert(3,1);
+	insert(2,2);
+	insert(4,1);
+	insert(6,3);
+	insert(5,2);
+
 	display();
 
 	return 0;
