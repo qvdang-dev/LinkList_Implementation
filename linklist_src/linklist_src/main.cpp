@@ -14,6 +14,7 @@ public:
 void insert(int value);
 void insert(int value, int Pos);
 void display();
+void deleteNode(int pos);
 
 node* g_pnHead;
 node* g_pnRear;
@@ -99,13 +100,69 @@ void insert(int value, int pos)
 			{
 				cout << "Error !\n";
 			}
-			
-
 		}	
+	}	
+}
+
+void deleteNode(int pos)
+{
+	bool IsError;
+	node *pnTemp = g_pnHead;
+	node *DeteleNode;
+
+	IsError = false;
+	if( pos == 0 )
+	{
+		IsError = true;
+		cout << "Error !\n";
+	}
+	else
+	{
+		if(pos == 1)
+		{
+			g_pnHead = g_pnHead->next;
+			g_pnHead->m_isHead = true;
+			pnTemp = NULL;
+			delete(pnTemp);
+			//free(pnTemp);
+		}
+		else
+		{
+			for( int i = 0; i < pos - 2 ; i++)
+			{
+				if((pnTemp->next)->next == NULL)
+				{
+					if( i < pos - 2)
+					{
+						IsError = true;
+						break;
+					}
+				}
+				pnTemp = pnTemp->next;
+			}
+
+			if(IsError == false)
+			{
+				DeteleNode = pnTemp->next;
+				if((pnTemp->next)->next == NULL)
+				{
+					pnTemp->m_isRear = true;
+				}
+				pnTemp->next = DeteleNode->next;
+				DeteleNode = NULL;
+				delete(DeteleNode);
+				//free(DeteleNode);
+			}
+			else
+			{
+				cout << "Error !\n";
+			}
+			
+		}
+		
 	}
 	
 }
-
 
 void display()
 {
@@ -143,6 +200,8 @@ int main()
 	insert(4,1);
 	insert(6,3);
 	insert(5,2);
+	deleteNode(3);
+	//deleteNode(1);
 
 	display();
 
