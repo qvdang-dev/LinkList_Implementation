@@ -15,6 +15,7 @@ void insert(int value);
 void insert(int value, int Pos);
 void display();
 void deleteNode(int pos);
+void reverse();
 
 node* g_pnHead;
 node* g_pnRear;
@@ -164,6 +165,26 @@ void deleteNode(int pos)
 	
 }
 
+void reverse()
+{
+	node *pCurrent = g_pnHead;
+	node *pNext;
+	node *pPre  = NULL;
+
+	pCurrent->m_isHead = false;
+	pCurrent->m_isRear = true;
+	while(pCurrent != NULL)
+	{
+		pNext = pCurrent->next;
+		pCurrent->next = pPre;
+		pPre = pCurrent;
+		pCurrent = pNext;
+	}
+	g_pnHead = pPre;
+	g_pnHead->m_isHead = true;
+	g_pnHead->m_isRear = false;
+}
+
 void display()
 {
 	node* pnTemp = g_pnHead;
@@ -186,24 +207,18 @@ int main()
 	g_pnHead = NULL;
 	g_pnRear = NULL;
 
-	// cout << "Number of Node: ";
-	// scanf_s("%d", &numOfNote);
-
-	// for (int i = 0; i < numOfNote; i++)
-	// {
-	// 	cout << " + Data " << i << ": ";
-	// 	scanf_s("%d", &data);
-	// 	insert(data, i + 1);
-	// }
 	insert(3,1);
 	insert(2,2);
 	insert(4,1);
 	insert(6,3);
 	insert(5,2);
-	deleteNode(3);
-	//deleteNode(1);
 
 	display();
+
+	reverse();
+	
+	display();
+
 
 	return 0;
 }
