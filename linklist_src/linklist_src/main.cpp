@@ -16,6 +16,7 @@ void insert(int value, int Pos);
 void display();
 void deleteNode(int pos);
 void reverse();
+void DisplayRecurtion();
 
 node* g_pnHead;
 node* g_pnRear;
@@ -184,6 +185,31 @@ void reverse()
 	g_pnHead->m_isHead = true;
 	g_pnHead->m_isRear = false;
 }
+void DisplayRecurtion(node * pNode)
+{
+	static bool first = false;
+
+	if(pNode == NULL)
+	{
+		cout << "|End|";
+		first = false;
+		return;
+	}
+
+	if(first == false)
+	{
+		first = true;
+		cout << "Current LinkList: "<<endl;
+	}
+
+	cout << "[Data: " << pNode->data;
+	cout << "|Addr: " << pNode;
+	cout << "|Next: " << pNode->next;
+	cout << "|IsHead: " << pNode->m_isHead << "|IsRear: ";
+	cout << pNode->m_isRear << "]\n";
+	DisplayRecurtion(pNode->next);
+
+}
 
 void display()
 {
@@ -217,7 +243,7 @@ int main()
 
 	reverse();
 	
-	display();
+	DisplayRecurtion(g_pnHead);
 
 
 	return 0;
