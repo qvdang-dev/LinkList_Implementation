@@ -14,8 +14,8 @@ int main()
 
 	display();
 
-	reverse();
-	
+	//reverse();
+	reverseUsingRecursion(GetHeadNode());
 	DisplayRecurtion(GetHeadNode());
 
 

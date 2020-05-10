@@ -14,6 +14,7 @@ void insert(int value)
 	pnTemp->m_isHead = false;
 	pnTemp->m_isRear = true;
 
+	// Check if Link list is emty or not
 	if (g_pnRear == NULL)
 	{
 		g_pnHead = pnTemp;
@@ -26,7 +27,7 @@ void insert(int value)
 	}
 
 	g_pnRear = pnTemp;
-
+ 
 }
 
 void insert(int value, int pos)
@@ -170,6 +171,28 @@ void reverse()
 	g_pnHead->m_isHead = true;
 	g_pnHead->m_isRear = false;
 }
+
+void reverseUsingRecursion(node *pNote)
+{
+	pNote->m_isHead = false;
+	pNote->m_isRear = false;
+
+	if(pNote->next == NULL)
+	{
+		g_pnRear = g_pnHead;
+		g_pnRear->m_isRear = true;
+		g_pnHead = pNote;
+		g_pnHead->m_isHead = true;
+
+		return;	
+	}	
+	reverseUsingRecursion(pNote->next);
+
+	node *Temp = pNote->next;
+	Temp->next = pNote;
+	pNote->next = NULL;
+}
+
 void DisplayRecurtion(node* pNode)
 {
 	static bool first = false;
